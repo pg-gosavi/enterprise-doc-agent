@@ -1,0 +1,20 @@
+[
+  {
+    "question": "What is the total amount due on the invoice?",
+    "relevant_chunk_ids": ["demo_chunk_001"],
+    "reference_answer": "The total amount due is $14,480.43.",
+    "metadata": { "category": "invoice_total" }
+  },
+  {
+    "question": "When is the payment due and what are the late fee terms?",
+    "relevant_chunk_ids": ["demo_chunk_001"],
+    "reference_answer": "Payment is due on 2024-04-14 (Net 30). A late fee of 1.5% per month applies after the due date.",
+    "metadata": { "category": "payment_terms" }
+  },
+  {
+    "question": "What professional services were billed and at what rate?",
+    "relevant_chunk_ids": ["demo_chunk_001"],
+    "reference_answer": "40 hours of professional services were billed at $150/hour totalling $6,000.",
+    "metadata": { "category": "line_items" }
+  }
+]
