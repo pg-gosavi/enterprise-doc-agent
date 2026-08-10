@@ -116,7 +116,7 @@ export default function CommandCenter() {
         <div className="sidebar-bottom">
           <div className="security-note"><ShieldCheck size={16} /><span>Private workspace</span></div>
           <a className="nav-item muted" href="#controls"><Settings2 size={18} /><span>Settings</span></a>
-          <div className="user-row"><div className="avatar">PG</div><div><strong>Priyanka Gosavi</strong><small>Workspace owner</small></div><ChevronDown size={15} /></div>
+          <div className="user-row"><div className="avatar">PG</div><div><strong>Parth Gosavi</strong><small>Workspace owner</small></div><ChevronDown size={15} /></div>
         </div>
       </aside>
 
