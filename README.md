@@ -1,5 +1,7 @@
 # Enterprise Document Intelligence Agent
 
+[▶️ Watch the demo video](./demo_video.mp4)
+
 Production RAG system with a **FastAPI backend** and two frontends:
 - **Next.js UI** in `app/`
 - **Streamlit UI** in `frontend/`
@@ -76,15 +78,6 @@ bash start.sh
 | http://localhost:8000/redoc | ReDoc documentation |
 | http://localhost:3000       | Next.js UI |
 | http://localhost:8501       | Streamlit UI |
-
-## Demo video
-
-
-<video controls width="800">
-  <source src="./demo_video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 
 ## Deployment
 
