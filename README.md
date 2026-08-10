@@ -1,11 +1,14 @@
 # Enterprise Document Intelligence Agent
 
-Production RAG system with a **FastAPI backend** + **Streamlit frontend**.
+Production RAG system with a **FastAPI backend** and two frontends:
+- **Next.js UI** in `app/`
+- **Streamlit UI** in `frontend/`
 
 ## Project Structure
 
 ```
 enterprise_doc_agent/
+├── app/                    ← Next.js UI (client-side document assistant)
 ├── backend/
 │   ├── api.py               ← FastAPI app (entry point)
 │   ├── dependencies.py      ← Singleton DI (pipeline, store)
@@ -30,6 +33,7 @@ enterprise_doc_agent/
 │   └── evaluator.py         ← P@k, MRR, ROUGE-L, faithfulness
 ├── config.py                ← All parameters (single source of truth)
 ├── requirements.txt
+├── package.json             ← Next.js frontend dependencies
 ├── start.sh                 ← Launch both servers in parallel
 └── .env.example
 ```
@@ -39,24 +43,74 @@ enterprise_doc_agent/
 ```bash
 pip install -r requirements.txt
 cp .env.example .env        # add: GROQ_API_KEY=gsk_...
-bash start.sh               # starts backend :8000 + frontend :8501
 ```
 
-Or run them separately:
+Start the backend:
 
 ```bash
-# Terminal 1 — backend
 uvicorn backend.api:app --host 0.0.0.0 --port 8000 --reload
+```
 
-# Terminal 2 — frontend
+Then start the Next.js frontend in a second terminal:
+
+```bash
+npm install
+npm run dev
+```
+
+Alternatively, launch the Streamlit frontend instead:
+
+```bash
 streamlit run frontend/app.py
+```
+
+Or use the bundled helper script:
+
+```bash
+bash start.sh
 ```
 
 | URL | Purpose |
 |-----|---------|
 | http://localhost:8000/docs  | Swagger UI — test every endpoint |
 | http://localhost:8000/redoc | ReDoc documentation |
+| http://localhost:3000       | Next.js UI |
 | http://localhost:8501       | Streamlit UI |
+
+## Deployment
+
+This project is best deployed as two connected services:
+
+- **Frontend:** Vercel for the Next.js app in `app/`.
+- **Backend:** A Python host such as Render or Fly.io for the FastAPI service.
+
+### Recommended deployment setup
+
+1. Push the repo to GitHub (`https://github.com/pg-gosavi/enterprise-doc-agent`).
+2. On Vercel, create a new project from this GitHub repo. Vercel will detect the Next.js app automatically.
+3. On Render, create a new Web Service from the same GitHub repo.
+   - Environment: Python 3.x
+   - Start command: `uvicorn backend.api:app --host 0.0.0.0 --port $PORT`
+   - Set environment variable: `GROQ_API_KEY`
+4. In Vercel project settings, add:
+   - `NEXT_PUBLIC_API_BASE_URL=https://<your-backend-url>`
+
+### Why this setup?
+
+- Vercel is ideal for the Next.js frontend.
+- The FastAPI backend cannot run directly on Vercel as a full Python service, so it needs a dedicated Python host.
+- Render/Fly.io supports a persistent web service and can run the FastAPI app with the same repo.
+
+### Local vs production
+
+For local development, keep using:
+
+```bash
+uvicorn backend.api:app --host 0.0.0.0 --port 8000 --reload
+npm run dev
+```
+
+When deployed, the frontend will call the rendered backend URL via `NEXT_PUBLIC_API_BASE_URL`.
 
 ## API Endpoints
 

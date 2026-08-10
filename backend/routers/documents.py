@@ -42,8 +42,7 @@ async def index_document(
         tmp_path = Path(tmp.name)
 
     try:
-        count = pipeline.index_document(tmp_path)
-        # Rename the stored chunk source to the original filename
+        count = pipeline.index_document(tmp_path, source_name=file.filename)
         logger.info(f"Indexed {count} chunks from '{file.filename}'")
         return IndexResponse(
             filename=file.filename,

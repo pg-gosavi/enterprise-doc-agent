@@ -73,9 +73,9 @@ class RAGPipeline:
         self._llm           = Groq(api_key=GROQ_API_KEY)
         logger.info(f"RAG Pipeline ready — LLM: {LLM_MODEL} via Groq")
 
-    def index_document(self, pdf_path: str | Path) -> int:
+    def index_document(self, pdf_path: str | Path, source_name: str | None = None) -> int:
         pdf_path  = Path(pdf_path)
-        extractor = PDFExtractor(pdf_path)
+        extractor = PDFExtractor(pdf_path, source_name=source_name)
         pages     = extractor.extract_pages()
         chunks    = self.chunker.chunk_pages(pages)
         self.store.upsert_chunks(chunks, self.embedder)

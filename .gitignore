@@ -25,6 +25,11 @@ uploads/
 chroma_store/
 *.sqlite3
 
+# Node / frontend artifacts
+node_modules/
+.next/
+npm-debug.log*
+
 # Local editor and OS files
 .vscode/
 .idea/

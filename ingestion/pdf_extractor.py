@@ -67,8 +67,9 @@ class PDFExtractor:
 
     MIN_CHARS_PER_PAGE = 80   # below this → likely scanned / image-only page
 
-    def __init__(self, filepath: str | Path):
+    def __init__(self, filepath: str | Path, source_name: str | None = None):
         self.filepath = Path(filepath)
+        self.source_name = source_name or self.filepath.name
         if not self.filepath.exists():
             raise FileNotFoundError(f"PDF not found: {self.filepath}")
         logger.info(f"Loaded PDF: [bold]{self.filepath.name}[/bold]")
@@ -96,7 +97,7 @@ class PDFExtractor:
                 "title":    doc.metadata.get("title", ""),
                 "author":   doc.metadata.get("author", ""),
                 "num_pages": doc.page_count,
-                "source":   self.filepath.name,
+                "source":   self.source_name,
             }
 
             for page in doc:
@@ -121,7 +122,7 @@ class PDFExtractor:
                 yield PageContent(
                     page_num=page.number + 1,
                     text=cleaned,
-                    source=self.filepath.name,
+                    source=self.source_name,
                     has_tables=_detect_tables(cleaned),
                     ocr_needed=ocr_needed,
                     metadata={**doc_meta, "page_num": page.number + 1},
