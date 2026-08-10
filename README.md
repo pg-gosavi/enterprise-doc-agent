@@ -79,35 +79,12 @@ bash start.sh
 
 ## Demo video
 
-If you want to include a demo video in the README, upload the file manually into the repository and then embed it with a relative path.
 
-1. Add the video file to the repository, for example:
-   - `demo.mp4`
-   - `docs/demo.mp4`
-   - `assets/demo.mp4`
-2. Commit the file to GitHub.
-3. In this README, embed it using HTML so GitHub can render the video:
-
-```md
 <video controls width="800">
-  <source src="./demo.mp4" type="video/mp4">
+  <source src="./demo_video.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-```
 
-If you upload the file to a subfolder, update the `src` path accordingly, for example:
-
-```md
-<video controls width="800">
-  <source src="./assets/demo.mp4" type="video/mp4">
-</video>
-```
-
-Alternatively, if you host the video on YouTube or another external site, use a linked thumbnail instead:
-
-```md
-[![Watch demo](https://img.youtube.com/vi/<VIDEO_ID>/hqdefault.jpg)](https://youtu.be/<VIDEO_ID>)
-```
 
 ## Deployment
 
